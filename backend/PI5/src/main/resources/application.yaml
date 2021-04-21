@@ -1,0 +1,18 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/pi5
+    username: gabriel
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      
+
