@@ -13,12 +13,14 @@ import dev.gabrielgrazziani.dto.ClienteFormCreate;
 import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Perfil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("pessoa/cliente")
+@Api(tags = "cliente")
 public class ClienteController {
 
 	@ApiResponses({
