@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.gabrielgrazziani.dto.ClienteFormCreate;
+import dev.gabrielgrazziani.dto.FormLogin;
 import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Perfil;
@@ -18,25 +18,24 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("pessoa/cliente")
-public class ClienteController {
-
+@RequestMapping("pessoa")
+public class PessoaController {
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 200,message = "success",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Cria um Cliente",notes = "Não precisa estar logado para usar este endpoint")
+	@ApiOperation(value = "login pessoa",notes = "serve tanto para CLIENTE como para FUNCIONARIO")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PessoaResponse create(@RequestBody @Valid ClienteFormCreate form) {
+	public PessoaResponse login(@RequestBody @Valid FormLogin form) {
 		return PessoaResponse.builder()
-			.nome(form.getNome())
-			.email(form.getEmail())
-			.cpfCnpj(form.getCpfCnpj())
-			.telefone(form.getTelefone())
-			.id(2L)
-			.perfil(Perfil.CLIENTE)
+			.nome("Renato")
+			.email("renato@gmail.com")
+			.cpfCnpj("132.882.170-66")
+			.telefone("(32)3232-3232")
 			.funcao("")
+			.perfil(Perfil.CLIENTE)
+			.id(2L)
 			.build();
 	}
 }

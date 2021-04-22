@@ -19,7 +19,7 @@ public class ClienteFormCreate {
 	private String nome;
 	
 	@NotBlank
-	@ApiModelProperty(notes = "CPF ou CNPJ do cliente",example = "132.882.170-66 ou 38.297.297/0001-71",required = true,position = 1)
+	@ApiModelProperty(notes = "CPF ou CNPJ do cliente",example = "132.882.170-66",required = true,position = 1)
 	@CpfOuCnpj
 	private String cpfCnpj;
 
@@ -31,7 +31,7 @@ public class ClienteFormCreate {
 	private String email;
 	
 	@NotBlank
-	@ApiModelProperty(notes = "telefone do cliente",example = "(32)32323232",position = 3)
+	@ApiModelProperty(notes = "telefone do cliente",example = "(32)3232-3232",position = 3)
 	@Pattern(regexp = "^(\\(\\d{2}\\)\\d{4}\\-\\d{4})|(\\(\\d{2}\\)\\d{5}\\-\\d{4})", message = "Telefone deve ter o formato= (99)9999-9999 ou (99)99999-9999")
 	private String telefone;
 
