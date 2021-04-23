@@ -2,6 +2,7 @@ package dev.gabrielgrazziani.dto;
 
 import java.math.BigDecimal;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,5 +13,6 @@ public class ItemResponse {
 	private Long idOrdemServico;
 	private Long idServicoProduto;
 	private float quantidade;
+	@ApiModelProperty(notes = "Valor de uma unidade")
 	private BigDecimal valorUnidade;
 }

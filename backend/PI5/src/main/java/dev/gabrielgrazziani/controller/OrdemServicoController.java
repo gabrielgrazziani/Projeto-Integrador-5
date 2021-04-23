@@ -20,6 +20,7 @@ import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
 import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
+import dev.gabrielgrazziani.model.Status;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,7 +42,7 @@ public class OrdemServicoController {
 		return OrdemServicoResponse.builder()
 			.id(3L)
 			.descricao(form.getDescricao())
-			.status("Aberto")
+			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
 			.idCliente(1l)
@@ -65,7 +66,7 @@ public class OrdemServicoController {
 		return OrdemServicoResponse.builder()
 			.id(id)
 			.descricao("bla bla")
-			.status("Aberto")
+			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
 			.idCliente(idCliente)
@@ -110,7 +111,7 @@ public class OrdemServicoController {
 		return HistoricoResponse.builder()
 				.id(id)
 				.idFuncionario(funcionario)
-				.status(status)
+				.status(Status.ABERTO)
 				.data(date)
 				.idOrdemServico(ordemServico)
 				.build();

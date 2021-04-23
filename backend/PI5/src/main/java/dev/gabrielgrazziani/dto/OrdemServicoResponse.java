@@ -2,6 +2,7 @@ package dev.gabrielgrazziani.dto;
 
 import java.time.LocalDate;
 
+import dev.gabrielgrazziani.model.Status;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class OrdemServicoResponse {
 	private Long idCliente;
 	private LocalDate dataEmissao;
 	private LocalDate dataFechamento;
-	private String status;
+	private Status status;
 	private String descricao;
 
 }
