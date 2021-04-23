@@ -1,13 +1,12 @@
 package dev.gabrielgrazziani.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.gabrielgrazziani.dto.HistoricoResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
 import dev.gabrielgrazziani.dto.PessoaResponse;
@@ -37,20 +37,7 @@ public class OrdemServicoController {
 	})
 	@ApiOperation(value = "Cria um uma ordem de servico",notes = "Precisa estar logado como um CLIENTE")
 	@PostMapping
-	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form) {
-//		List<ItemResponse> items = form.getItems().stream()
-//			.map(e -> {
-//				return ItemResponse.builder()
-//						.idServicoProduto(e.getIdServicoProduto())
-//						.idOrdemServico(3L)
-//						.quantidade(e.getQuantidade())
-//						.build();
-//			}).collect(Collectors.toList());
-//		
-//		for (int i = 1; i <= items.size(); i++) {
-//			items.get(i).setId((long) i);
-//		}
-		
+	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form) {	
 		return OrdemServicoResponse.builder()
 			.id(3L)
 			.descricao(form.getDescricao())
@@ -99,6 +86,34 @@ public class OrdemServicoController {
 		}
 		ordem.add(buscar(3, 5));
 		return ordem;
+	}
+	
+	@ApiResponses({
+		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
+	})
+	@ApiOperation(value = "Busca historico de uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertense ou comum FUNCIONARIO qual quer")
+	@GetMapping("/{idOrdemServico}/historico")
+	private List<HistoricoResponse> buscarHistorico(
+			@ApiParam(value = "id ordem de servico") 
+			@PathVariable long idOrdemServico) {
+		List<HistoricoResponse> historicos = new ArrayList<>();
+		LocalDateTime date = LocalDateTime.now().minusDays(5);
+		historicos.add(historico(idOrdemServico,"Aberto",4L,null,date));
+		historicos.add(historico(idOrdemServico,"Em Execução",6L,4L,date.plusDays(1)));
+		historicos.add(historico(idOrdemServico,"Concluído",7L,4L,date.plusDays(3)));
+		
+		return historicos;
+	}
+	
+	private HistoricoResponse historico(Long ordemServico,String status, Long id, Long funcionario, LocalDateTime date) {
+		return HistoricoResponse.builder()
+				.id(id)
+				.idFuncionario(funcionario)
+				.status(status)
+				.data(date)
+				.idOrdemServico(ordemServico)
+				.build();
 	}
 	
 	@ApiResponses({
