@@ -7,18 +7,18 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.gabrielgrazziani.dto.HistoricoResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
-import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Status;
 import io.swagger.annotations.Api;
@@ -33,12 +33,13 @@ import io.swagger.annotations.ApiResponses;
 public class OrdemServicoParaClienteController {
 	
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 201,message = "created",response = OrdemServicoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Cria um uma ordem de servico",notes = "Precisa estar logado como um CLIENTE")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	@PostMapping
-	private OrdemServicoResponse solicitarParaCliente(@Valid @RequestBody OrdemServicoForm form) {	
+	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form) {	
 		return OrdemServicoResponse.builder()
 			.id(3L)
 			.descricao(form.getDescricao())
@@ -51,20 +52,20 @@ public class OrdemServicoParaClienteController {
 	}
 	
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = OrdemServicoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Lista as ordens de servicos do cliente Logado",notes = "Precisa estar logado como um CLIENTE")
 	@GetMapping()
-	private List<OrdemServicoResponse> listarParaCliente() {	
+	private List<OrdemServicoResponse> listar() {	
 		List<OrdemServicoResponse> ordem = new ArrayList<>();
-		ordem.add(buscarParaCliente(3));
+		ordem.add(buscar(3));
 		return ordem;
 	}
 
 	@ApiOperation(value = "Busca uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertence")
 	@GetMapping("/{id}")
-	private OrdemServicoResponse buscarParaCliente(
+	private OrdemServicoResponse buscar(
 			@ApiParam(value = "id ordem de servico") 
 			@PathVariable long id
 	) {	
@@ -80,7 +81,7 @@ public class OrdemServicoParaClienteController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = HistoricoResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = HistoricoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Busca historico de uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertence")

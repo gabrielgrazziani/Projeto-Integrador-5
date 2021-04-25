@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 public class ServiçoProdutoController {
 
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Busca uma servico produto")
@@ -45,7 +45,7 @@ public class ServiçoProdutoController {
 	}
 	
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Listar servicos produtos")

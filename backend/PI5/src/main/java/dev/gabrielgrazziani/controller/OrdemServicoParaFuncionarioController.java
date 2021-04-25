@@ -43,7 +43,7 @@ public class OrdemServicoParaFuncionarioController {
 	}
 	
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = OrdemServicoResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = OrdemServicoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Lista todas as ordens de servicos",notes = "Precisa estar logado como um FUNCIONARIO")
@@ -57,7 +57,7 @@ public class OrdemServicoParaFuncionarioController {
 	}
 	
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = HistoricoResponse.class),
+		@ApiResponse(code = 200,message = "ok",response = HistoricoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
 	@ApiOperation(value = "Busca historico de uma ordem de servico",notes = "Precisa estar logado como um FUNCIONARIO")
