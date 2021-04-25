@@ -58,18 +58,15 @@ public class OrdemServicoController {
 	@GetMapping("/{id}")
 	private OrdemServicoResponse buscar(
 			@ApiParam(value = "id ordem de servico") 
-			@PathVariable long id,
-			@ApiParam(value = "id CLIENTE, so é obrigatorio se não estiver logado com um CLIENTE") 
-			@RequestParam(defaultValue = "0",required = false) long idCliente
+			@PathVariable long id
 	) {	
-		if(idCliente < 1) idCliente = 2;
 		return OrdemServicoResponse.builder()
 			.id(id)
 			.descricao("bla bla")
 			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
-			.idCliente(idCliente)
+			.idCliente(2L)
 			.idFuncionario(null)
 			.build();
 	}
@@ -78,14 +75,27 @@ public class OrdemServicoController {
 		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Lista as ordens de servicos",notes = "Precisa estar logado como um FUNCIONARIO")
+	@ApiOperation(value = "Lista todas as ordens de servicos",notes = "Precisa estar logado como um FUNCIONARIO")
 	@GetMapping()
 	private List<OrdemServicoResponse> listar() {	
 		List<OrdemServicoResponse> ordem = new ArrayList<>();
 		for (int i = 1; i <= 5; i++) {
-			ordem.add(buscar(i, 3));
+			ordem.add(buscar(i));
 		}
-		ordem.add(buscar(3, 5));
+		return ordem;
+	}
+	
+	@ApiResponses({
+		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
+	})
+	@ApiOperation(value = "Lista todas as ordens de servicos de um cliente",notes = "Precisa estar logado como um CLIENTE ao qual deseja listar ou comum FUNCIONARIO qual quer")
+	@GetMapping("cliente/{idCliente}")
+	private List<OrdemServicoResponse> listarCliente(@PathVariable Long idCliente) {	
+		List<OrdemServicoResponse> ordem = new ArrayList<>();
+		for (int i = 1; i <= 5; i++) {
+			ordem.add(buscar(i));
+		}
 		return ordem;
 	}
 	
@@ -100,18 +110,18 @@ public class OrdemServicoController {
 			@PathVariable long idOrdemServico) {
 		List<HistoricoResponse> historicos = new ArrayList<>();
 		LocalDateTime date = LocalDateTime.now().minusDays(5);
-		historicos.add(historico(idOrdemServico,"Aberto",4L,null,date));
-		historicos.add(historico(idOrdemServico,"Em Execução",6L,4L,date.plusDays(1)));
-		historicos.add(historico(idOrdemServico,"Concluído",7L,4L,date.plusDays(3)));
+		historicos.add(historico(idOrdemServico,Status.ABERTO,4L,null,date));
+		historicos.add(historico(idOrdemServico,Status.EM_EXECUCAO,6L,4L,date.plusDays(1)));
+		historicos.add(historico(idOrdemServico,Status.CONCLUIDO,7L,4L,date.plusDays(3)));
 		
 		return historicos;
 	}
 	
-	private HistoricoResponse historico(Long ordemServico,String status, Long id, Long funcionario, LocalDateTime date) {
+	private HistoricoResponse historico(Long ordemServico,Status status, Long id, Long funcionario, LocalDateTime date) {
 		return HistoricoResponse.builder()
 				.id(id)
 				.idFuncionario(funcionario)
-				.status(Status.ABERTO)
+				.status(status)
 				.data(date)
 				.idOrdemServico(ordemServico)
 				.build();
@@ -125,7 +135,7 @@ public class OrdemServicoController {
 	@GetMapping("/cliente")
 	private List<OrdemServicoResponse> listarParaCliente() {	
 		List<OrdemServicoResponse> ordem = new ArrayList<>();
-		ordem.add(buscar(3, 5));
+		ordem.add(buscar(3));
 		return ordem;
 	}
 }
