@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("pessoa/cliente")
+@RequestMapping("cliente")
 @Api(tags = "cliente")
 public class ClienteController {
 

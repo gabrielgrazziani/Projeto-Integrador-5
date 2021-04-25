@@ -28,9 +28,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("ordem_servico")
-@Api(tags = "ordem_servico")
-public class OrdemServicoController {
+@RequestMapping("cliente/ordem_servico")
+@Api(tags = {"ordem_servico","cliente"})
+public class OrdemServicoParaClienteController {
 	
 	@ApiResponses({
 		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
@@ -38,7 +38,7 @@ public class OrdemServicoController {
 	})
 	@ApiOperation(value = "Cria um uma ordem de servico",notes = "Precisa estar logado como um CLIENTE")
 	@PostMapping
-	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form) {	
+	private OrdemServicoResponse solicitarParaCliente(@Valid @RequestBody OrdemServicoForm form) {	
 		return OrdemServicoResponse.builder()
 			.id(3L)
 			.descricao(form.getDescricao())
@@ -54,9 +54,17 @@ public class OrdemServicoController {
 		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Busca uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertense ou comum FUNCIONARIO qual quer")
+	@ApiOperation(value = "Lista as ordens de servicos do cliente Logado",notes = "Precisa estar logado como um CLIENTE")
+	@GetMapping()
+	private List<OrdemServicoResponse> listarParaCliente() {	
+		List<OrdemServicoResponse> ordem = new ArrayList<>();
+		ordem.add(buscarParaCliente(3));
+		return ordem;
+	}
+
+	@ApiOperation(value = "Busca uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertence")
 	@GetMapping("/{id}")
-	private OrdemServicoResponse buscar(
+	private OrdemServicoResponse buscarParaCliente(
 			@ApiParam(value = "id ordem de servico") 
 			@PathVariable long id
 	) {	
@@ -70,42 +78,14 @@ public class OrdemServicoController {
 			.idFuncionario(null)
 			.build();
 	}
-	
+
 	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
+		@ApiResponse(code = 201,message = "created",response = HistoricoResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Lista todas as ordens de servicos",notes = "Precisa estar logado como um FUNCIONARIO")
-	@GetMapping()
-	private List<OrdemServicoResponse> listar() {	
-		List<OrdemServicoResponse> ordem = new ArrayList<>();
-		for (int i = 1; i <= 5; i++) {
-			ordem.add(buscar(i));
-		}
-		return ordem;
-	}
-	
-	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
-		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
-	})
-	@ApiOperation(value = "Lista todas as ordens de servicos de um cliente",notes = "Precisa estar logado como um CLIENTE ao qual deseja listar ou comum FUNCIONARIO qual quer")
-	@GetMapping("cliente/{idCliente}")
-	private List<OrdemServicoResponse> listarCliente(@PathVariable Long idCliente) {	
-		List<OrdemServicoResponse> ordem = new ArrayList<>();
-		for (int i = 1; i <= 5; i++) {
-			ordem.add(buscar(i));
-		}
-		return ordem;
-	}
-	
-	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
-		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
-	})
-	@ApiOperation(value = "Busca historico de uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertense ou comum FUNCIONARIO qual quer")
+	@ApiOperation(value = "Busca historico de uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertence")
 	@GetMapping("/{idOrdemServico}/historico")
-	private List<HistoricoResponse> buscarHistorico(
+	private List<HistoricoResponse> buscarHistoricoParaCliente(
 			@ApiParam(value = "id ordem de servico") 
 			@PathVariable long idOrdemServico) {
 		List<HistoricoResponse> historicos = new ArrayList<>();
@@ -125,17 +105,5 @@ public class OrdemServicoController {
 				.data(date)
 				.idOrdemServico(ordemServico)
 				.build();
-	}
-	
-	@ApiResponses({
-		@ApiResponse(code = 201,message = "created",response = PessoaResponse.class),
-		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
-	})
-	@ApiOperation(value = "Lista as ordens de servicos do cliente Logado",notes = "Precisa estar logado como um CLIENTE")
-	@GetMapping("/cliente")
-	private List<OrdemServicoResponse> listarParaCliente() {	
-		List<OrdemServicoResponse> ordem = new ArrayList<>();
-		ordem.add(buscar(3));
-		return ordem;
 	}
 }
