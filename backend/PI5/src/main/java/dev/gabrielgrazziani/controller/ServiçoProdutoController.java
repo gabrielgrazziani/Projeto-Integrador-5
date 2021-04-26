@@ -28,7 +28,7 @@ public class ServiçoProdutoController {
 		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Busca uma servico produto")
+	@ApiOperation(value = "Busca uma servico produto",notes = "Não precisa estar logado")
 	@GetMapping("/{id}")
 	private ServiçoProdutoResponse buscar(
 			@ApiParam(value = "id servico produto") 
@@ -48,7 +48,7 @@ public class ServiçoProdutoController {
 		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
 	})
-	@ApiOperation(value = "Listar servicos produtos")
+	@ApiOperation(value = "Listar servicos produtos",notes = "Não precisa estar logado")
 	@GetMapping()
 	private List<ServiçoProdutoResponse> listar() {	
 		List<ServiçoProdutoResponse> serviçoProdutos = new ArrayList<ServiçoProdutoResponse>();
