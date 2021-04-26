@@ -1,0 +1,18 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${ENV_DB_URL:jdbc}
+    username: ${ENV_USERNAME}
+    password: ${ENV_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      
+
