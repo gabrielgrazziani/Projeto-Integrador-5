@@ -13,9 +13,9 @@ alter table servicoProduto add column url_imagem varchar(200);
 
 create table Pessoa (
 	
-	pessoa_id serial not null,
+	pessoa_id serial not null primary key,
 	pessoa_nome varchar(100) not null,
-	cpfCnpj varchar(100) not null primary key,
+	cpfCnpj varchar(100) not null,
 	telefone varchar(100) not null,
 	email varchar(100) not null,
 	funcao varchar(100),
