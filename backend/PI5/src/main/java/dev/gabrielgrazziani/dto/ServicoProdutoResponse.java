@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ServiçoProdutoResponse {
+public class ServicoProdutoResponse {
 	private Long id;
 	private String nome;
 	private Tipo tipo;

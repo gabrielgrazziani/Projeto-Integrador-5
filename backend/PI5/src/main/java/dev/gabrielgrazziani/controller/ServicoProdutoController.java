@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.dto.ServicoProdutoForm;
 import dev.gabrielgrazziani.dto.ServicoProdutoFormAlter;
-import dev.gabrielgrazziani.dto.ServiçoProdutoResponse;
+import dev.gabrielgrazziani.dto.ServicoProdutoResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Tipo;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("servico_produto")
 @Api(tags = "servico_produto")
-public class ServiçoProdutoController {
+public class ServicoProdutoController {
 
 	@ApiResponses({
 		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
@@ -40,11 +40,11 @@ public class ServiçoProdutoController {
 	})
 	@ApiOperation(value = "Busca uma serviço produto",notes = "Não precisa estar logado")
 	@GetMapping("/{id}")
-	private ServiçoProdutoResponse buscar(
+	private ServicoProdutoResponse buscar(
 			@ApiParam(value = "id serviço produto") 
 			@PathVariable long id
 	) {	
-		return ServiçoProdutoResponse.builder()
+		return ServicoProdutoResponse.builder()
 			.id(id)
 			.nome("chaveiro "+ id)
 			.tipo(Tipo.PRODUTO)
@@ -60,8 +60,8 @@ public class ServiçoProdutoController {
 	})
 	@ApiOperation(value = "Listar serviços produtos",notes = "Não precisa estar logado")
 	@GetMapping()
-	private List<ServiçoProdutoResponse> listar() {	
-		List<ServiçoProdutoResponse> serviçoProdutos = new ArrayList<ServiçoProdutoResponse>();
+	private List<ServicoProdutoResponse> listar() {	
+		List<ServicoProdutoResponse> serviçoProdutos = new ArrayList<ServicoProdutoResponse>();
 		
 		for (int i = 1; i <= 5; i++) {
 			serviçoProdutos.add(buscar(i));
@@ -76,9 +76,9 @@ public class ServiçoProdutoController {
 	@ApiOperation(value = "cria um serviço produto",notes = "Precisa estar logado como um FUNCIONARIO")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	private ServiçoProdutoResponse cria(@Valid @RequestBody ServicoProdutoForm form) {	
+	private ServicoProdutoResponse cria(@Valid @RequestBody ServicoProdutoForm form) {	
 		
-		return ServiçoProdutoResponse.builder()
+		return ServicoProdutoResponse.builder()
 				.id(4L)
 				.nome(form.getNome())
 				.tipo(form.getTipo())
@@ -94,9 +94,9 @@ public class ServiçoProdutoController {
 	})
 	@ApiOperation(value = "altera um serviço produto",notes = "Precisa estar logado como um FUNCIONARIO")
 	@PutMapping
-	private ServiçoProdutoResponse altera(@Valid @RequestBody ServicoProdutoFormAlter form) {	
+	private ServicoProdutoResponse altera(@Valid @RequestBody ServicoProdutoFormAlter form) {	
 		
-		return ServiçoProdutoResponse.builder()
+		return ServicoProdutoResponse.builder()
 				.id(form.getId())
 				.nome(form.getNome())
 				.tipo(form.getTipo())
