@@ -1,11 +1,11 @@
 package dev.gabrielgrazziani.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,18 +22,23 @@ import dev.gabrielgrazziani.dto.ServicoProdutoForm;
 import dev.gabrielgrazziani.dto.ServicoProdutoFormAlter;
 import dev.gabrielgrazziani.dto.ServicoProdutoResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
-import dev.gabrielgrazziani.model.Tipo;
+import dev.gabrielgrazziani.model.ServicoProduto;
+import dev.gabrielgrazziani.service.ServicoProdutoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("servico_produto")
 @Api(tags = "servico_produto")
 public class ServicoProdutoController {
 
+	private final ServicoProdutoService servicoProdutoService;
+	
 	@ApiResponses({
 		@ApiResponse(code = 200,message = "ok",response = PessoaResponse.class),
 		@ApiResponse(code = 400,message = "Input Invalido",response = MensException.class)
@@ -44,14 +49,10 @@ public class ServicoProdutoController {
 			@ApiParam(value = "id serviço produto") 
 			@PathVariable long id
 	) {	
-		return ServicoProdutoResponse.builder()
-			.id(id)
-			.nome("chaveiro "+ id)
-			.tipo(Tipo.PRODUTO)
-			.valorComercial(new BigDecimal(id * 1.4))
-			.valorCusto(new BigDecimal(id))
-			.unidadeMedida("20 Kg")
-			.build();
+		ServicoProduto servicoProduto = servicoProdutoService.busca(id);
+		ServicoProdutoResponse servicoProdutoResponse = new ServicoProdutoResponse();
+		BeanUtils.copyProperties(servicoProduto, servicoProdutoResponse);
+		return servicoProdutoResponse;
 	}
 	
 	@ApiResponses({
@@ -61,12 +62,16 @@ public class ServicoProdutoController {
 	@ApiOperation(value = "Listar serviços produtos",notes = "Não precisa estar logado")
 	@GetMapping()
 	private List<ServicoProdutoResponse> listar() {	
-		List<ServicoProdutoResponse> serviçoProdutos = new ArrayList<ServicoProdutoResponse>();
-		
-		for (int i = 1; i <= 5; i++) {
-			serviçoProdutos.add(buscar(i));
-		}
-		return serviçoProdutos;
+		List<ServicoProdutoResponse> servicoProdutos = servicoProdutoService.listar()
+			.stream()
+			.map(sp -> {
+				ServicoProdutoResponse servicoProdutoResponse = new ServicoProdutoResponse();
+				BeanUtils.copyProperties(sp, servicoProdutoResponse);
+				return servicoProdutoResponse;
+			})
+			.collect(Collectors.toList());
+
+		return servicoProdutos;
 	}
 	
 	@ApiResponses({

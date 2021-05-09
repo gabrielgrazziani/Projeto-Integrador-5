@@ -42,8 +42,8 @@ public class OrdemServicoParaFuncionarioController {
 			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
-			.idCliente(2L)
-			.idFuncionario(null)
+//			.idCliente(2L)
+//			.idFuncionario(null)
 			.build();
 	}
 	
@@ -89,8 +89,8 @@ public class OrdemServicoParaFuncionarioController {
 			.status(form.getStatus())
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
-			.idCliente(2L)
-			.idFuncionario(form.getIdFuncionario())
+//			.idCliente(2L)
+//			.idFuncionario(form.getIdFuncionario())
 			.build();
 	}
 	

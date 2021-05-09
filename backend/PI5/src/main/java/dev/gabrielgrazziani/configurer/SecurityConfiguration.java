@@ -1,5 +1,6 @@
 package dev.gabrielgrazziani.configurer;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,8 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import dev.gabrielgrazziani.service.PessoaDetailService;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+	
+	private final PessoaDetailService detailService;
 	
 	private static final String[] AUTH_WHITELIST = {
             "/",
@@ -38,19 +45,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/servico_produto/**","/servico_produto").hasRole("FUNCIONARIO")
 			.anyRequest().authenticated()
 			.and().httpBasic()
-			.and().logout();
+			.and().logout()
+			.and().userDetailsService(detailService);
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		auth.inMemoryAuthentication()
-			.withUser("cliente")
-			.password(encoder.encode("cliente"))
-			.roles("CLIENTE")
-		.and()
-			.withUser("funcionario")
-			.password(encoder.encode("funcionario"))
-			.roles("FUNCIONARIO");
+		auth.userDetailsService(detailService)
+			.passwordEncoder(encoder());
+	}
+	
+	@Bean
+	public PasswordEncoder encoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 }

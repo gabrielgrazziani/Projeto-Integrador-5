@@ -12,7 +12,7 @@ public class ItemResponse {
 	private Long id;
 	private Long idOrdemServico;
 	private Long idServicoProduto;
-	private float quantidade;
+	private int quantidade;
 	@ApiModelProperty(notes = "Valor de uma unidade")
 	private BigDecimal valorUnidade;
 }

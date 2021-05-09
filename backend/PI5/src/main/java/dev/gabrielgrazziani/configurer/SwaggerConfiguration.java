@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,6 +28,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 		Predicate<RequestHandler> basePackage = RequestHandlerSelectors.basePackage("dev.gabrielgrazziani");
 		Predicate<String> apiURLs = PathSelectors.ant("/**");
 		return new Docket(DocumentationType.SWAGGER_2)
+				.ignoredParameterTypes(AuthenticationPrincipal.class)
 				.ignoredParameterTypes(Pageable.class)
 				.select()
 				.apis(basePackage)

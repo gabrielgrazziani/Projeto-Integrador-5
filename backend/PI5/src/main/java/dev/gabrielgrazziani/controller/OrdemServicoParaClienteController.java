@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,18 +21,26 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.gabrielgrazziani.dto.HistoricoResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
+import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
+import dev.gabrielgrazziani.model.OrdemServico;
+import dev.gabrielgrazziani.model.Pessoa;
 import dev.gabrielgrazziani.model.Status;
+import dev.gabrielgrazziani.service.OrdemServicoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("cliente/ordem_servico")
 @Api(tags = {"ordem_servico","cliente"})
 public class OrdemServicoParaClienteController {
+	
+	private final OrdemServicoService ordemServicoService;
 	
 	@ApiResponses({
 		@ApiResponse(code = 201,message = "created",response = OrdemServicoResponse.class),
@@ -39,16 +49,14 @@ public class OrdemServicoParaClienteController {
 	@ApiOperation(value = "Cria um uma ordem de servico",notes = "Precisa estar logado como um CLIENTE")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@PostMapping
-	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form) {	
-		return OrdemServicoResponse.builder()
-			.id(3L)
-			.descricao(form.getDescricao())
-			.status(Status.ABERTO)
-			.dataEmissao(LocalDate.now())
-			.dataFechamento(null)
-			.idCliente(1l)
-			.idFuncionario(null)
-			.build();
+	private OrdemServicoResponse solicitar(@Valid @RequestBody OrdemServicoForm form,@AuthenticationPrincipal Pessoa cliente) {		
+		OrdemServico ordemServico = ordemServicoService.solicitar(form,cliente);
+		
+		OrdemServicoResponse ordemServicoResponse = new OrdemServicoResponse();
+		BeanUtils.copyProperties(ordemServico,ordemServicoResponse);
+		ordemServicoResponse.setCliente(response(cliente));
+		
+		return ordemServicoResponse;
 	}
 	
 	@ApiResponses({
@@ -75,8 +83,8 @@ public class OrdemServicoParaClienteController {
 			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
-			.idCliente(2L)
-			.idFuncionario(null)
+//			.idCliente(2L)
+//			.idFuncionario(null)
 			.build();
 	}
 
@@ -106,5 +114,12 @@ public class OrdemServicoParaClienteController {
 				.data(date)
 				.idOrdemServico(ordemServico)
 				.build();
+	}
+	
+	private PessoaResponse response(Pessoa pessoa) {
+		if(pessoa == null) return null;
+		PessoaResponse pessoaResponse = new PessoaResponse();
+		BeanUtils.copyProperties(pessoa,pessoaResponse);
+		return pessoaResponse;
 	}
 }
