@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,15 +83,14 @@ public class ServicoProdutoController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	private ServicoProdutoResponse cria(@Valid @RequestBody ServicoProdutoForm form) {	
+		ServicoProduto servicoProduto = new ServicoProduto();
+		BeanUtils.copyProperties(form, servicoProduto);
 		
-		return ServicoProdutoResponse.builder()
-				.id(4L)
-				.nome(form.getNome())
-				.tipo(form.getTipo())
-				.valorComercial(form.getValorComercial())
-				.valorCusto(form.getValorCusto())
-				.unidadeMedida(form.getUnidadeMedida())
-				.build();
+		servicoProduto = servicoProdutoService.cria(servicoProduto);
+		
+		ServicoProdutoResponse servicoProdutoResponse = new ServicoProdutoResponse();
+		BeanUtils.copyProperties(servicoProduto, servicoProdutoResponse);
+		return servicoProdutoResponse;
 	}
 	
 	@ApiResponses({
@@ -99,16 +99,19 @@ public class ServicoProdutoController {
 	})
 	@ApiOperation(value = "altera um serviço produto",notes = "Precisa estar logado como um FUNCIONARIO")
 	@PutMapping
-	private ServicoProdutoResponse altera(@Valid @RequestBody ServicoProdutoFormAlter form) {	
+	private ResponseEntity<ServicoProdutoResponse> altera(@Valid @RequestBody ServicoProdutoFormAlter form) {			
+		ServicoProduto servicoProduto = new ServicoProduto();
+		BeanUtils.copyProperties(form, servicoProduto);
 		
-		return ServicoProdutoResponse.builder()
-				.id(form.getId())
-				.nome(form.getNome())
-				.tipo(form.getTipo())
-				.valorComercial(form.getValorComercial())
-				.valorCusto(form.getValorCusto())
-				.unidadeMedida(form.getUnidadeMedida())
-				.build();
+		if(form.getId() == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		servicoProduto = servicoProdutoService.altera(servicoProduto);
+		
+		ServicoProdutoResponse servicoProdutoResponse = new ServicoProdutoResponse();
+		BeanUtils.copyProperties(servicoProduto, servicoProdutoResponse);
+		return ResponseEntity.ok(servicoProdutoResponse);
 	}
 	
 	@ApiResponses({
@@ -119,6 +122,6 @@ public class ServicoProdutoController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	private void exclui(@ApiParam(value = "id serviço produto") @PathVariable Long id) {	
-		
+		servicoProdutoService.exclui(id);
 	}
 }

@@ -29,4 +29,19 @@ public class ServicoProdutoService {
 		return new ResponseStatusException(HttpStatus.NOT_FOUND, "Servico/Produto não encontrado");
 	}
 
+	public ServicoProduto cria(ServicoProduto servicoProduto) {
+		servicoProduto.setId(null);
+		servicoProdutoRepository.save(servicoProduto);
+		return servicoProduto;
+	}
+
+	public ServicoProduto altera(ServicoProduto servicoProduto) {
+		servicoProdutoRepository.save(servicoProduto);
+		return servicoProduto;
+	}
+
+	public void exclui(Long id) {
+		servicoProdutoRepository.deleteById(id);
+	}
+
 }
