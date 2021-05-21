@@ -3,15 +3,19 @@ package dev.gabrielgrazziani.dto;
 import dev.gabrielgrazziani.model.Perfil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @ApiModel(value = "Pessoa Response")
 public class PessoaResponse {
 	
-	@ApiModelProperty(notes = "Id da pessoa",example = "Pedro Ricardo",required = true,position = 0)
+	@ApiModelProperty(notes = "Id da pessoa",example = "2",required = true,position = 0)
 	private Long id;
 	
 	@ApiModelProperty(notes = "Nome da pessoa",example = "Pedro Ricardo",required = true,position = 1)

@@ -5,11 +5,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.gabrielgrazziani.dto.AtualizarOrdensServicoForm;
 import dev.gabrielgrazziani.dto.HistoricoResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
@@ -37,8 +42,8 @@ public class OrdemServicoParaFuncionarioController {
 			.status(Status.ABERTO)
 			.dataEmissao(LocalDate.now())
 			.dataFechamento(null)
-			.idCliente(2L)
-			.idFuncionario(null)
+//			.idCliente(2L)
+//			.idFuncionario(null)
 			.build();
 	}
 	
@@ -72,6 +77,21 @@ public class OrdemServicoParaFuncionarioController {
 		historicos.add(historico(idOrdemServico,Status.CONCLUIDO,7L,4L,date.plusDays(3)));
 		
 		return historicos;
+	}
+	
+	@ApiOperation(value = "Atualizar OrdensServico",notes = "Precisa estar logado como FUNCIONARIO")
+	@PatchMapping
+	private OrdemServicoResponse atualizarOrdensServico(
+			@Valid @RequestBody AtualizarOrdensServicoForm form) {	
+		return OrdemServicoResponse.builder()
+			.id(form.getIdOrdensServico())
+			.descricao("bla bla")
+			.status(form.getStatus())
+			.dataEmissao(LocalDate.now())
+			.dataFechamento(null)
+//			.idCliente(2L)
+//			.idFuncionario(form.getIdFuncionario())
+			.build();
 	}
 	
 	private HistoricoResponse historico(Long ordemServico,Status status, Long id, Long funcionario, LocalDateTime date) {
