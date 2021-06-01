@@ -46,7 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and().httpBasic()
 			.and().logout()
-			.and().userDetailsService(detailService);
+			.and().userDetailsService(detailService)
+			.cors();
 	}
 
 	@Override
