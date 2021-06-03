@@ -44,10 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.GET, "/servico_produto/**","/servico_produto").permitAll()
 			.antMatchers("/servico_produto/**","/servico_produto").hasRole("FUNCIONARIO")
 			.anyRequest().authenticated()
-			.and().httpBasic()
 			.and().logout()
 			.and().userDetailsService(detailService)
-			.cors();
+			.httpBasic()
+			.and().cors();
 	}
 
 	@Override
