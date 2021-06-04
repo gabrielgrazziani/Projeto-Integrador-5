@@ -35,4 +35,8 @@ public class ItemService {
 	public List<ItemOrdemServico> list(){
 		return itemRepository.findAll();
 	}
+
+	public List<ItemOrdemServico> buscaFiltrandoPorUmaOrdemServico(OrdemServico ordemServico) {
+		return itemRepository.findByOrdemServico(ordemServico);
+	}
 }

@@ -17,13 +17,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.gabrielgrazziani.dto.HistoricoResponse;
+import dev.gabrielgrazziani.dto.ItemResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
+import dev.gabrielgrazziani.dto.OrdemServicoResponseDetalhado;
 import dev.gabrielgrazziani.dto.PessoaResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Historico;
+import dev.gabrielgrazziani.model.ItemOrdemServico;
 import dev.gabrielgrazziani.model.OrdemServico;
 import dev.gabrielgrazziani.model.Pessoa;
+import dev.gabrielgrazziani.service.ItemService;
 import dev.gabrielgrazziani.service.OrdemServicoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 public class OrdemServicoParaClienteController {
 	
 	private final OrdemServicoService ordemServicoService;
+	private final ItemService itemService;
 	
 	@ApiResponses({
 		@ApiResponse(code = 201,message = "created",response = OrdemServicoResponse.class),
@@ -70,13 +75,16 @@ public class OrdemServicoParaClienteController {
 
 	@ApiOperation(value = "Busca uma ordem de servico",notes = "Precisa estar logado como um CLIENTE ao qual esta ordem de servico pertence")
 	@GetMapping("/{id}")
-	private OrdemServicoResponse buscar(
+	private OrdemServicoResponseDetalhado buscar(
 			@ApiParam(value = "id ordem de servico") 
 			@PathVariable long id,
 			@AuthenticationPrincipal Pessoa pessoa
 	) {	
 		OrdemServico ordemServico = ordemServicoService.buscaFiltrandoPorUmaPessoa(pessoa,id);
-		return response(ordemServico);
+		
+		List<ItemOrdemServico> items = itemService.buscaFiltrandoPorUmaOrdemServico(ordemServico);
+		
+		return response(ordemServico,items);
 	}
 
 	@ApiResponses({
@@ -120,12 +128,39 @@ public class OrdemServicoParaClienteController {
 		return pessoaResponse;
 	}
 	
+	private OrdemServicoResponseDetalhado response(OrdemServico ordemServico,List<ItemOrdemServico> items) {
+		if(ordemServico == null) return null;
+		OrdemServicoResponseDetalhado ordemServicoResponse = new OrdemServicoResponseDetalhado();
+		BeanUtils.copyProperties(ordemServico,ordemServicoResponse);
+		ordemServicoResponse.setCliente(response(ordemServico.getCliente()));
+		ordemServicoResponse.setFuncionario(response(ordemServico.getFuncionario()));
+		
+		List<ItemResponse> itemsRespose = items.stream()
+			.map(this::response)
+			.collect(Collectors.toList());
+		ordemServicoResponse.setItems(itemsRespose);
+		
+		return ordemServicoResponse;
+	}
+	
 	private OrdemServicoResponse response(OrdemServico ordemServico) {
 		if(ordemServico == null) return null;
 		OrdemServicoResponse ordemServicoResponse = new OrdemServicoResponse();
 		BeanUtils.copyProperties(ordemServico,ordemServicoResponse);
 		ordemServicoResponse.setCliente(response(ordemServico.getCliente()));
 		ordemServicoResponse.setFuncionario(response(ordemServico.getFuncionario()));
+		
 		return ordemServicoResponse;
+	}
+	
+	private ItemResponse response(ItemOrdemServico item) {
+		if(item == null) return null;
+		return ItemResponse.builder()
+			.id(item.getId())
+			.idOrdemServico(item.getOrdemServico().getId())
+			.idServicoProduto(item.getServicoProduto().getId())
+			.quantidade(item.getQuantidade())
+			.valorUnidade(item.getValorUnidade())
+			.build();
 	}
 }
