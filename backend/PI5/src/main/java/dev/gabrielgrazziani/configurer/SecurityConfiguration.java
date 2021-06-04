@@ -52,10 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.and().logout()
 			.and().userDetailsService(detailService)
 			.httpBasic()
-			.and().cors();
+			.and().cors().configurationSource(corsConfigurationSource());
 	}
 	
-	@Bean
+	
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
