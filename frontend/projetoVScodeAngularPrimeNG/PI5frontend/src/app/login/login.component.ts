@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core'; 
+import { ServicesService } from '../service/services.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
         }
     `]
 })
+
+
 export class LoginComponent implements OnInit {
 
   login: string
@@ -17,9 +19,14 @@ export class LoginComponent implements OnInit {
 
   disabled: boolean = true;
   
-  constructor() { }
+  constructor(private auth: ServicesService) { }
 
   ngOnInit(): void {
   }
+
+  loginPage(){
+    this.auth.login(this.login, this.senha)
+  }
+
 
 }
