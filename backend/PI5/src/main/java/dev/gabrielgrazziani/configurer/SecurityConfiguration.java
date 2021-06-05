@@ -52,18 +52,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.and().logout()
 			.and().userDetailsService(detailService)
 			.httpBasic()
-			.and().cors().configurationSource(corsConfigurationSource());
+			.and().cors();
 	}
 	
-	
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-   }
+//	@Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+//        configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//   }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
