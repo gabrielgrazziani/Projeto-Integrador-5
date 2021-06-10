@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("servico_produto")
 @Api(tags = "servico_produto")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ServicoProdutoController {
 
 	private final ServicoProdutoService servicoProdutoService;
