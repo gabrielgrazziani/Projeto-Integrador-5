@@ -39,7 +39,7 @@ public class ExceptionHandlerGeral extends ResponseEntityExceptionHandler {
 		String mensUsuario = messageSource.getMessage("mensagem.erro.propriedade", null, 
 				LocaleContextHolder.getLocale());
 		String mensDev = ex.getCause().toString(); 
-		List<MensException> mens = Arrays.asList(new MensException(mensUsuario, mensDev));
+		List<MensException> mens = Arrays.asList(new MensException(mensUsuario, mensDev,""));
 		
 		return handleExceptionInternal(ex, mens, headers, HttpStatus.BAD_REQUEST, request);
 	}
@@ -48,8 +48,9 @@ public class ExceptionHandlerGeral extends ResponseEntityExceptionHandler {
 		List<MensException> mens = new ArrayList<MensException>();
 		for (FieldError f: bindingResult.getFieldErrors()) {
 			String mensUsuario = messageSource.getMessage(f, LocaleContextHolder.getLocale());
-			String mensDev = f.toString(); 
-			mens.add(new MensException(mensUsuario, mensDev));
+			String mensDev = f.toString();
+			String campo = f.getField();
+			mens.add(new MensException(mensUsuario, mensDev,campo));
 		}
 		return mens;
 	}

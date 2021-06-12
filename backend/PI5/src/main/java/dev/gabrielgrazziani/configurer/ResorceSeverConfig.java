@@ -26,7 +26,7 @@ public class ResorceSeverConfig extends ResourceServerConfigurerAdapter{
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http
 		.authorizeRequests()
 		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers(HttpMethod.POST,"/cliente").permitAll()
@@ -37,7 +37,10 @@ public class ResorceSeverConfig extends ResourceServerConfigurerAdapter{
 		.antMatchers("/servico_produto/**","/servico_produto").hasRole("FUNCIONARIO")
 		.anyRequest().authenticated()
 		.and().sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+			.csrf().disable()
+			.cors();
 	}
 	
 	@Override
