@@ -16,5 +16,5 @@ public class ItemForm {
 	@NotNull
 	@Positive
 	@ApiModelProperty(notes = "Quantidade deste item")
-	private float quantidade;
+	private int quantidade;
 }

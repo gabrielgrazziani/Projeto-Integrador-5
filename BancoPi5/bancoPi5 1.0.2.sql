@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+
+
 create table OrdemServico (
 
 	Ordem_id serial not null primary key,
@@ -12,7 +13,7 @@ create table OrdemServico (
 	FOREIGN KEY (cliente_id) REFERENCES pessoa (pessoa_id)
 );
 
-BEGIN;
+
 
 
 CREATE TABLE public.itensordemservico
@@ -86,5 +87,6 @@ ALTER TABLE public.ordemservico
     REFERENCES public.pessoa (pessoa_id)
     NOT VALID;
 
-END;
+
+
 
