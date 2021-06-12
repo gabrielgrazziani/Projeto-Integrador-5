@@ -1,63 +1,31 @@
 package dev.gabrielgrazziani.configurer;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
-import dev.gabrielgrazziani.service.PessoaDetailService;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableAuthorizationServer
+@EnableResourceServer
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
-	private final PessoaDetailService detailService;
-	
-	private static final String[] AUTH_WHITELIST = {
-            "/",
-			// -- Swagger UI v2
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/swagger-ui/**",
-            "/csrf"
-    };
-	
+	@Bean
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.authorizeRequests()
-			.antMatchers(AUTH_WHITELIST).permitAll()
-			.antMatchers(HttpMethod.POST,"/cliente").permitAll()
-			.antMatchers("/cliente/**","/cliente").hasRole("CLIENTE")
-			.antMatchers("/funcionario/**","/funcionario").hasRole("FUNCIONARIO")
-			.antMatchers("/pessoa/**","/pessoa").authenticated()
-			.antMatchers(HttpMethod.GET, "/servico_produto/**","/servico_produto").permitAll()
-			.antMatchers("/servico_produto/**","/servico_produto").hasRole("FUNCIONARIO")
-			.anyRequest().authenticated()
-			.and().logout()
-			.and().userDetailsService(detailService)
-			.httpBasic()
-			.and().cors();
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(detailService)
-			.passwordEncoder(encoder());
+	protected AuthenticationManager authenticationManager() throws Exception {
+		return super.authenticationManager();
 	}
 	
 	@Bean
 	public PasswordEncoder encoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 }

@@ -14,7 +14,7 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfOuCnpj, String>{
 	
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if(value == null || value.isBlank()) {
+		if(value == null || value.trim().equals("")) {
 			return true;
 		}
 		

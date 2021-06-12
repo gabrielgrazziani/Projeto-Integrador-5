@@ -41,6 +41,7 @@ public class ServicoProdutoService {
 	}
 
 	public void exclui(Long id) {
+		if(!servicoProdutoRepository.existsById(id)) throw notFound();
 		servicoProdutoRepository.deleteById(id);
 	}
 
