@@ -39,8 +39,8 @@ public class ResorceSeverConfig extends ResourceServerConfigurerAdapter{
 		.and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-			.csrf().disable()
-			.cors();
+			.csrf().disable();
+//			.cors();
 	}
 	
 	@Override

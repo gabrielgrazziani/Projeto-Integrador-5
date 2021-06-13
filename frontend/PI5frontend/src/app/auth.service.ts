@@ -15,7 +15,7 @@ export class AuthService {
   login(login: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
     .append('Content-Type', 'application/x-www-form-urlencoded')
-    .append('Authorization', 'Basic jx.zxZm');
+    .append('Authorization', 'Basic YW5ndWxhcjpzZW5oYTEyMw==');
 
     const body = `username=${login}&password=${senha}&grant_type=password`;
 
