@@ -1,4 +1,16 @@
-<h2>Encomende uma peça 3D</h2>
+<h2>Carrinho</h2>
 
-<input type="text" name="descricao" placeholder="Insira uma Descrição">
+<div>
+    <input type="text" placeholder="Insira uma Descrição, por obséquio" [(ngModel)]="descricao">
+</div>
+<div>
+    <p>Valor total = {{valorTotal()}}</p>
+</div>
+<div>
+    <button type="submit" name="comprar" (click)="comprar()">Concluir Pedido</button>
+</div>
+<div *ngFor="let c of cart">
+     {{c.nome}}
+</div>
+
 

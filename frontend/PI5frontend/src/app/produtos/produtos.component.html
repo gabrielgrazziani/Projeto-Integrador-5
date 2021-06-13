@@ -1,6 +1,6 @@
 <h2>Produtos</h2>
 
-<div *ngFor="let p of listaProdutos">
+<div *ngFor="let p of listaProdutos, let i = index">
     <p>
         {{p.id}}
     </p>
@@ -19,4 +19,7 @@
     <p>
         {{p.unidadeMedida}}
     </p>
+    <button type="submit" name="adicionarCarrinho" (click)="adicionarCarrinho(p)">Adicionar</button>
 </div>
+
+<app-servicos [cart]="cart"></app-servicos>
