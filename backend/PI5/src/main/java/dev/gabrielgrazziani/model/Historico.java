@@ -2,6 +2,7 @@ package dev.gabrielgrazziani.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import lombok.Setter;
 public class Historico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_historico")
 	private Long id;
 	private LocalDateTime data;
 	private Status status;

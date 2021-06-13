@@ -3,6 +3,7 @@ package dev.gabrielgrazziani.model;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,12 +34,15 @@ public class Pessoa implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pessoa_id")
 	private Long id;
 	
 	@NotNull
+	@Column(name = "pessoa_nome")
 	private String nome;
 	
 	@NotNull
+	@Column(name = "cpfcnpj")
 	private String cpfCnpj;
 
 	@Pattern(regexp = "^(\\(\\d{2}\\)\\d{4}\\-\\d{4})|(\\(\\d{2}\\)\\d{5}\\-\\d{4})", message = "Telefone deve ter o formato= (99)9999-9999 ou (99)99999-9999")
