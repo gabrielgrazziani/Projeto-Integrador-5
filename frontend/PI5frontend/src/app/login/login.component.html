@@ -6,13 +6,13 @@
     </div>
     
     <div>
-        <input type="text" name="login" placeholder="inserir email" ngModel required #login>
+        <input type="text" name="login" placeholder="inserir email" [(ngModel)]="loginn" required>
         <br>
-        <input type="text" name="senha" placeholder="inserir senha" ngModel required #senha>
+        <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="senha" required>
     </div>
     
     <div>
-        <button type="submit" label="login" [routerLink]="['/home']">Login</button>
+        <button type="submit" label="login" (click)="login()" [routerLink]="['/home']">Login</button>
     </div>
     <div>
         <button type="submit" label="cadastro" [routerLink]="['/cadastro']">Registrar-se</button>
