@@ -1,3 +1,22 @@
-<h2>Produtos - Encontre uma solução para o dia-a-dia em 3D</h2>
+<h2>Produtos</h2>
 
-<button type="submit" label="cadastrodone" [routerLink]="['/servicos']">Encomendar Algo</button>
+<div *ngFor="let p of listaProdutos">
+    <p>
+        {{p.id}}
+    </p>
+    <p>
+        {{p.nome}}
+    </p>
+    <p>
+        {{p.tipo}}
+    </p>
+    <p>
+        {{p.valorCusto}}
+    </p>
+    <p>
+        {{p.valorComercial}}
+    </p>
+    <p>
+        {{p.unidadeMedida}}
+    </p>
+</div>
