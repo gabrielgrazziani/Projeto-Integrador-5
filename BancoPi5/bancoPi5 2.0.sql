@@ -3,7 +3,7 @@ BEGIN;
 
 CREATE TABLE public.historico
 (
-    id_historico integer NOT NULL,
+    id_historico serial NOT NULL,
     data_historico date,
     status character varying,
     ordemservico integer,
@@ -13,7 +13,7 @@ CREATE TABLE public.historico
 
 CREATE TABLE public.itensordemservico
 (
-    id_itensordemservico integer NOT NULL,
+    id_itensordemservico serial NOT NULL,
     quantidade real NOT NULL,
     valorunit real NOT NULL,
     ordemservico integer NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE public.itensordemservico
 
 CREATE TABLE public.ordemservico
 (
-    ordem_id integer NOT NULL,
+    ordem_id serial NOT NULL,
     funcionario_id integer,
     cliente_id integer NOT NULL,
     data_emissao date NOT NULL,
@@ -35,12 +35,12 @@ CREATE TABLE public.ordemservico
 
 CREATE TABLE public.pessoa
 (
-    pessoa_id integer NOT NULL,
+    pessoa_id serial NOT NULL,
     pessoa_nome character varying(100) NOT NULL,
     cpfcnpj character varying(100) NOT NULL,
     telefone character varying(100) NOT NULL,
     email character varying(100) NOT NULL,
-    funcao character varying(100) NOT NULL,
+    funcao character varying(100),
     login character varying(100) NOT NULL,
     senha character varying(100) NOT NULL,
     perfil character varying(100) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE public.pessoa
 
 CREATE TABLE public.servicoproduto
 (
-    id_servicoproduto integer NOT NULL,
+    id_servicoproduto serial NOT NULL,
     nome character varying(100) NOT NULL,
     tipo character varying(100) NOT NULL,
     valor_custo real NOT NULL,
