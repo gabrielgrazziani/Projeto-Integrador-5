@@ -11,8 +11,12 @@ import lombok.Data;
 public class ItemResponse {
 	private Long id;
 	private Long idOrdemServico;
-	private Long idServicoProduto;
+	private ServicoProdutoResponse servicoProduto;
 	private int quantidade;
 	@ApiModelProperty(notes = "Valor de uma unidade")
 	private BigDecimal valorUnidade;
+	
+	public BigDecimal getSoma(){
+		return servicoProduto.getValorComercial().multiply(new BigDecimal(quantidade));
+	}
 }

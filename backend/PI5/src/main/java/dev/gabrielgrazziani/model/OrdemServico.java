@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,10 +25,11 @@ import lombok.Setter;
 @Table(name = "ordemservico")
 public class OrdemServico {
 	@Id
-	@GeneratedValue()
-	@Column(name = "ordemservico_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ordem_id")
 	private Long id;
 	@ManyToOne(optional = true)
+	@JoinColumn(name = "funcionario_id")
 	private Pessoa funcionario;
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -36,5 +38,6 @@ public class OrdemServico {
 	private LocalDate dataFechamento;
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Column(name = "descricaco")
 	private String descricao;
 }

@@ -13,6 +13,7 @@ import dev.gabrielgrazziani.model.Pessoa;
 import dev.gabrielgrazziani.repository.PessoaRepository;
 
 @Configuration
+@Profile("dev")
 public class DadosTestePessoa {
 
 	@Autowired
@@ -21,7 +22,6 @@ public class DadosTestePessoa {
 	private PasswordEncoder encoder;
 	
 	@PostConstruct
-	@Profile("dev")
 	@Transactional
 	public void criarPessoa() {
 		Pessoa pessoa = new Pessoa();

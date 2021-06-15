@@ -13,13 +13,13 @@ import dev.gabrielgrazziani.model.Tipo;
 import dev.gabrielgrazziani.repository.ServicoProdutoRepository;
 
 @Configuration
+@Profile("dev")
 public class DadosTesteServicoProduto {
 
 	@Autowired
 	private ServicoProdutoRepository repository;
 	
 	@PostConstruct
-	@Profile("dev")
 	public void criarServicoProduto() {
 		ServicoProduto sp1 = ServicoProduto.builder()
 			.nome("Lapis")

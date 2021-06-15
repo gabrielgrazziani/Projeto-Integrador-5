@@ -23,11 +23,12 @@ public class ItemOrdemServico {
 	@Column(name = "id_itensordemservico")
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name = "ordem_servico_id")
+	@JoinColumn(name = "ordemservico")
 	private OrdemServico ordemServico;
 	@ManyToOne
-	@JoinColumn(name = "servico_produto_id")
+	@JoinColumn(name = "servicoprodurto")
 	private ServicoProduto servicoProduto;
 	private int quantidade;
+	@Column(name = "valorunit")
 	private BigDecimal valorUnidade;
 }

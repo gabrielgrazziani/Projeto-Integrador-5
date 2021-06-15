@@ -23,11 +23,13 @@ import dev.gabrielgrazziani.dto.OrdemServicoForm;
 import dev.gabrielgrazziani.dto.OrdemServicoResponse;
 import dev.gabrielgrazziani.dto.OrdemServicoResponseDetalhado;
 import dev.gabrielgrazziani.dto.PessoaResponse;
+import dev.gabrielgrazziani.dto.ServicoProdutoResponse;
 import dev.gabrielgrazziani.exceptions.MensException;
 import dev.gabrielgrazziani.model.Historico;
 import dev.gabrielgrazziani.model.ItemOrdemServico;
 import dev.gabrielgrazziani.model.OrdemServico;
 import dev.gabrielgrazziani.model.Pessoa;
+import dev.gabrielgrazziani.model.ServicoProduto;
 import dev.gabrielgrazziani.service.ItemService;
 import dev.gabrielgrazziani.service.OrdemServicoService;
 import io.swagger.annotations.Api;
@@ -160,9 +162,16 @@ public class OrdemServicoParaClienteController {
 		return ItemResponse.builder()
 			.id(item.getId())
 			.idOrdemServico(item.getOrdemServico().getId())
-			.idServicoProduto(item.getServicoProduto().getId())
+			.servicoProduto(response(item.getServicoProduto()))
 			.quantidade(item.getQuantidade())
 			.valorUnidade(item.getValorUnidade())
 			.build();
+	}
+	
+	private ServicoProdutoResponse response(ServicoProduto servicoProduto) {
+		if(servicoProduto == null) return null;
+		ServicoProdutoResponse servicoProdutoResponse = new ServicoProdutoResponse();
+		BeanUtils.copyProperties(servicoProduto, servicoProdutoResponse);
+		return servicoProdutoResponse;
 	}
 }
