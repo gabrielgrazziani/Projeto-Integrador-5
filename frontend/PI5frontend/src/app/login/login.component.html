@@ -1,23 +1,22 @@
 
-
-<form autocomplete="off" #f="ngForm">
-    <div>
-        <h1>Login</h1>
-    </div>
-    
-    <div>
-        <input type="text" name="login" placeholder="inserir email" [(ngModel)]="loginn" required>
-        <br>
-        <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="senha" required>
-    </div>
-    
-    <div>
-        <button type="submit" label="login" (click)="login()" [routerLink]="['/produtos']">Login</button>
-    </div>
-    <div>
-        <button type="submit" label="cadastro" [routerLink]="['/cadastro']">Registrar-se</button>
-    </div>
-
-</form>
+<div class="main">
+    <form autocomplete="off" #f="ngForm">
+        <div>
+            <h1 class="font">Login</h1>
+        </div>
+        
+        <div>
+            <input type="text" name="login" placeholder="inserir email" [(ngModel)]="loginn" required>
+            <br>
+            <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="senha" required>
+        </div>
+        
+        <div class="column">
+            <button class="button button5" type="submit" label="login" (click)="login()" [routerLink]="['/produtos']">Login</button>
+            <button class="button button5" type="submit" label="cadastro" [routerLink]="['/cadastro']">Registrar-se</button>
+        </div>
+        
+    </form>
+</div>
 
 <!-- (click)="login(login.value, senha.value)" -->

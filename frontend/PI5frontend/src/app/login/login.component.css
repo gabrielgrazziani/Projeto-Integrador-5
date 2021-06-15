@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .header {
+    border: 1px solid red;
+    padding: 15px;
+  }
+  
+  /* .menu {
+    width: 25%;
+    float: left;
+    padding: 15px;
+    border: 1px solid red;
+  } */
+  
+  .main {  
+     text-align: center; 
+    width: 100%;
+    float: left;
+    padding: 15px;
+  }
+
+  .column {
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .button {
+    background-color: #151615; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Copperplate papyrus", Fantasy;
+  }
+
+  .button5:hover {
+    background-color: #555555;
+    color: white;
+  }
+
+  input[type=text], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .font {
+    font-family: "Copperplate papyrus", Fantasy;
+  }

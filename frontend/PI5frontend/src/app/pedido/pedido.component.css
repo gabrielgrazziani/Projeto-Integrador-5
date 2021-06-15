@@ -20,6 +20,13 @@
     padding: 15px;
 }
 
+.main2 {
+    text-align: center;
+    width: 100%;
+    float: left;
+    padding: 15px;
+}
+
 .button {
     background-color: #151615; /* Green */
     border: none;
@@ -40,7 +47,8 @@
     color: white;
   }
 
-  .topnav {
+
+.topnav {
     overflow: hidden;
     background-color: #333;
   }

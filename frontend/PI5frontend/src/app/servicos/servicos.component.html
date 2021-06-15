@@ -1,16 +1,14 @@
-<h2>Carrinho</h2>
+<h2 class="font">Itens do Pedido</h2>
 
 <div>
-    <input type="text" placeholder="Insira uma Descrição, por obséquio" [(ngModel)]="descricao">
+    <textarea id="descricao" rows="5" cols="33" placeholder="Insira uma Descrição, por obséquio" [(ngModel)]="descricao"></textarea>
 </div>
 <div>
-    <p>Valor total = {{valorTotal()}}</p>
+    <p class="font">Valor total = {{valorTotal()}}</p>
 </div>
 <div>
-    <button type="submit" name="comprar" (click)="comprar()">Concluir Pedido</button>
+    <button class="button button5" type="submit" name="comprar" (click)="comprar()">Concluir Pedido</button>
 </div>
 <div *ngFor="let c of cart">
      {{c.nome}}
 </div>
-
-

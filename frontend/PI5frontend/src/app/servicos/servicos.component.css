@@ -1,0 +1,23 @@
+.button {
+    background-color: #151615; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Copperplate papyrus", Fantasy;
+  }
+
+  .button5:hover {
+    background-color: #555555;
+    color: white;
+  }
+
+  .font {
+    font-family: "Copperplate papyrus", Fantasy;
+  }

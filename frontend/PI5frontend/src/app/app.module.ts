@@ -10,6 +10,8 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { HomeComponent } from './home/home.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { ServicosComponent } from './servicos/servicos.component';
+import { ListaPedidosComponent } from './lista-pedidos/lista-pedidos.component';
+import { PedidoComponent } from './pedido/pedido.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ServicosComponent } from './servicos/servicos.component';
     CadastroComponent,
     HomeComponent,
     ProdutosComponent,
-    ServicosComponent
+    ServicosComponent,
+    ListaPedidosComponent,
+    PedidoComponent
 
   ],
   imports: [

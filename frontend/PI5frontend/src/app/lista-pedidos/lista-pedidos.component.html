@@ -1,0 +1,21 @@
+<div class="topnav">
+    <label class="font">Meus Pedidos</label>
+ 
+    <a class="font" href="">Sair</a>
+    <a class="font" href="/produtos">Voltar</a>
+</div>
+
+<div class="main2">    
+    <div *ngFor="let p of listaPedidos, let i = index">
+        <p>
+            <label class="font">Código: </label> {{p.id}}
+        </p>
+        <p>
+            <label class="font">Status: </label>{{p.status}}
+        </p>
+        <p>
+            <label class="font">Data do Pedido: </label>{{p.dataEmissao}}
+        </p>
+        <button class="button button5" type="submit" name="detalhes" [routerLink]="['/pedido', p.id]">Detalhes do Pedido</button>
+    </div>
+</div>

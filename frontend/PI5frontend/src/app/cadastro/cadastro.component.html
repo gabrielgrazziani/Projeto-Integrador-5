@@ -1,24 +1,24 @@
-
-<form autocomplete="off" #f="ngForm">
+<div class="main">
+    <form autocomplete="off" #f="ngForm">
+        
+        <h2 class="font">Registrar-se</h2>
+        
+        <div>
+            <input type="text" name="nome" placeholder="inserir nome" [(ngModel)]="cliente.nome" required>
+            <br>
+            <input type="text" name="email" placeholder="inserir email" [(ngModel)]="cliente.email" required>
+            <br>
+            <input type="text" name="telefone" placeholder="inserir telefone" [(ngModel)]="cliente.telefone" required>
+            <br>
+            <input type="text" name="cpfcnpj" placeholder="inserir CPF/CNPJ" [(ngModel)]="cliente.cpfCnpj" required>
+            <br>
+            <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="cliente.senha" required>
+        </div>
+        <div class="column">
+            <button class="button button5" type="submit" label="cadastrar" (click)="cadastro()" [routerLink]="['/']">Cadastrar</button>
+            <button class="button button5" type="submit" label="cadastrodone" [routerLink]="['/']">Já Tenho Cadastro</button>
+        </div>
+        <input type="checkbox" name="concordarTermo"><label> Eu concordo com o </label><a href="">Termo</a>
+    </form>
     
-    <h2>Registrar-se</h2>
-    
-    <div>
-        <input type="text" name="nome" placeholder="inserir nome" [(ngModel)]="cliente.nome" required>
-        <br>
-        <input type="text" name="email" placeholder="inserir email" [(ngModel)]="cliente.email" required>
-        <br>
-        <input type="text" name="telefone" placeholder="inserir telefone" [(ngModel)]="cliente.telefone" required>
-        <br>
-        <input type="text" name="cpfcnpj" placeholder="inserir CPF/CNPJ" [(ngModel)]="cliente.cpfCnpj" required>
-        <br>
-        <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="cliente.senha" required>
-    </div>
-    <div>
-        <button type="submit" label="cadastrar" (click)="cadastro()" [routerLink]="['/']">Cadastrar</button>
-    </div>
-    <div>
-        <button type="submit" label="cadastrodone" [routerLink]="['/']">Já Tenho Cadastro</button>
-    </div>
-</form>
-
+</div>
