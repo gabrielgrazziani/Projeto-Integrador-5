@@ -30,6 +30,14 @@ export class PedidoComponent implements OnInit {
       console.log(response)
       this.pedido = response;
     });
-  }  
+  }
+  
+  valorTotal(){
+    var total: number = 0;
+    for(let i of this.pedido.items){
+      total = total + i.soma;
+    }
+    return total;
+  }
 
 }

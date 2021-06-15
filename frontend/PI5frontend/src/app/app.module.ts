@@ -12,6 +12,7 @@ import { ProdutosComponent } from './produtos/produtos.component';
 import { ServicosComponent } from './servicos/servicos.component';
 import { ListaPedidosComponent } from './lista-pedidos/lista-pedidos.component';
 import { PedidoComponent } from './pedido/pedido.component';
+import { CriarProdutoComponent } from './criar-produto/criar-produto.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PedidoComponent } from './pedido/pedido.component';
     ProdutosComponent,
     ServicosComponent,
     ListaPedidosComponent,
-    PedidoComponent
+    PedidoComponent,
+    CriarProdutoComponent
 
   ],
   imports: [

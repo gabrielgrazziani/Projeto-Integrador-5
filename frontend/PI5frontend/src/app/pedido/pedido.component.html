@@ -13,9 +13,18 @@
         <label class="font">Data de Emissão: </label>{{pedido.dataEmissao}}
     </p>
     <p>
-        <label class="font">Valor: </label>Algum valor 
+        <label class="font">Descrição: </label> {{pedido.descricao}} 
+    </p>
+    <p>
+        <label class="font">Valor: </label> {{valorTotal()}} 
     </p>
     <p>
         <label class="font">Status: </label> {{pedido.status}}
     </p>
+    <div *ngFor="let item of pedido.items">
+        <label class="font">Produto: </label> {{item.servicoProduto.nome}}
+        <label class="font">Quantidade: </label> {{item.quantidade}}
+        <label class="font">ValorUnidade: </label> {{item.servicoProduto.valorComercial}}
+        <label class="font">Soma: </label> {{item.soma}}
+    </div>
 </div>

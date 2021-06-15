@@ -12,17 +12,17 @@ import dev.gabrielgrazziani.model.Perfil;
 import dev.gabrielgrazziani.model.Pessoa;
 import dev.gabrielgrazziani.repository.PessoaRepository;
 
-@Configuration
-@Profile("dev")
+//@Configuration
+//@Profile("dev")
 public class DadosTestePessoa {
 
-	@Autowired
+//	@Autowired
 	private PessoaRepository pessoaRepository;
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	@PostConstruct
-	@Transactional
+//	@PostConstruct
+//	@Transactional
 	public void criarPessoa() {
 		Pessoa pessoa = new Pessoa();
 		pessoa.setCpfCnpj("132.882.170-66");

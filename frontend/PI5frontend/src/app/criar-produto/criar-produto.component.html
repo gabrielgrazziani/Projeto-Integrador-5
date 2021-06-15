@@ -1,0 +1,26 @@
+<div class="topnav">
+    <label class="font">Inserir Produtos ou Serviços</label>
+
+    <a class="font" href="">Sair</a>
+</div>
+
+<div>
+    <input type="text" name="nome" placeholder="nome do produto" [(ngModel)]="produto.nome" required>
+    <br>
+    <select id="tipo" placeholder="tipo do produto" [(ngModel)]="produto.tipo" required>
+        <option value="PRODUTO">Produto</option>
+        <option value="SERVICO">Serviço</option>
+    </select>
+    <br>
+    <input type="text" name="unidadeMedida" placeholder="unidade de medida" [(ngModel)]="produto.unidadeMedida" required>
+    <br>
+    <input type="text" name="valorComercial" placeholder="valor comercial" [(ngModel)]="produto.valorComercial" required>
+    <br>
+    <input type="text" name="valorCusto" placeholder="custo do produto" [(ngModel)]="produto.valorCusto" required>
+</div>
+
+<div>
+    <button type="submit" name="inserirproduto" (click)="inserirProduto()">Inseir Produto</button>
+</div>
+
+<!-- [(ngModel)]="cliente.nome" -->

@@ -14,6 +14,9 @@
             <label class="font">Status: </label>{{p.status}}
         </p>
         <p>
+            <label class="font">Descrição: </label>{{p.descricao}}
+        </p>
+        <p>
             <label class="font">Data do Pedido: </label>{{p.dataEmissao}}
         </p>
         <button class="button button5" type="submit" name="detalhes" [routerLink]="['/pedido', p.id]">Detalhes do Pedido</button>

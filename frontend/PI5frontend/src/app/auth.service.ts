@@ -36,6 +36,8 @@ export class AuthService {
       return Promise.reject(response);
     });
 
+    
+
   }
 
   retornarToken() {

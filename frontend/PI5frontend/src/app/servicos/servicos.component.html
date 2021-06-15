@@ -10,5 +10,9 @@
     <button class="button button5" type="submit" name="comprar" (click)="comprar()">Concluir Pedido</button>
 </div>
 <div *ngFor="let c of cart">
-     {{c.nome}}
+     {{c.produto.nome}}
+     <input type="number" name="algumacoisa" [(ngModel)]="c.quantidade">
+</div>
+<div>
+    <button class="button button5" type="submit" name="limparcarrinho" (click)="limparCarrinho()">Limpar Carrinho</button>
 </div>

@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+.header {
+    padding: 15px;
+    text-align: center;
+    border: 3px solid black;
+    background-color: gray;
+}
+.menu {
+    text-align: center;
+    width: 50%;
+    float: left;
+    padding: 15px;
+}
+.main {
+    text-align: center;
+    width: 50%;
+    float: left;
+    padding: 15px;
+}
+
+.button {
+    background-color: #151615; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Copperplate papyrus", Fantasy;
+  }
+
+  .button5:hover {
+    background-color: #555555;
+    color: white;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav label {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a {
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .font {
+    font-family: "Copperplate papyrus", Fantasy;
+  }

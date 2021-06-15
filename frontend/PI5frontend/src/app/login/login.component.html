@@ -8,11 +8,11 @@
         <div>
             <input type="text" name="login" placeholder="inserir email" [(ngModel)]="loginn" required>
             <br>
-            <input type="text" name="senha" placeholder="inserir senha" [(ngModel)]="senha" required>
+            <input type="password" name="senha" placeholder="inserir senha" [(ngModel)]="senha" required>
         </div>
         
         <div class="column">
-            <button class="button button5" type="submit" label="login" (click)="login()" [routerLink]="['/produtos']">Login</button>
+            <button class="button button5" type="submit" label="login" (click)="login()">Login</button>
             <button class="button button5" type="submit" label="cadastro" [routerLink]="['/cadastro']">Registrar-se</button>
         </div>
         

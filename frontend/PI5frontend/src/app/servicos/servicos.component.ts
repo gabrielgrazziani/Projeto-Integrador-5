@@ -4,6 +4,7 @@ import { Produto } from '../produto.model';
 import { OrdemServico } from '../ordem-servico.model';
 import { Item } from '../item.model';
 import { OrdemServicoService } from '../ordem-servico.service';
+import { Itemcarrinho } from '../itemcarrinho.model';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { OrdemServicoService } from '../ordem-servico.service';
 })
 export class ServicosComponent implements OnInit {
 
-  @Input() cart: Produto[];
+  @Input() cart: Itemcarrinho[];
 
   descricao: string;
 
@@ -28,7 +29,7 @@ export class ServicosComponent implements OnInit {
   valorTotal(){
     var total: number = 0;
     for(let i of this.cart){
-      total = total + i.valorComercial;
+      total = total + (i.produto.valorComercial * i.quantidade);
     }
     return total;
   }
@@ -39,8 +40,8 @@ export class ServicosComponent implements OnInit {
     for(var i = 0; i < this.cart.length; i++ ){
 
       const item = new Item();
-      item.idServicoProduto = this.cart[i].id;
-      item.quantidade = 1;
+      item.idServicoProduto = this.cart[i].produto.id;
+      item.quantidade = this.cart[i].quantidade;
       itens.push(item)
 
     }
@@ -56,6 +57,11 @@ export class ServicosComponent implements OnInit {
     this.ordemServicoService.adicionarOrdemServico(v).toPromise().then(retorno => {
       console.log(retorno);
     });
+    this.limparCarrinho();
+  }
+
+  limparCarrinho(){
+    this.cart.length = 0;
   }
 
 
